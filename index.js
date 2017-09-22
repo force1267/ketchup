@@ -95,8 +95,8 @@ function starwars() {
     function ColSystem(width, height) {
         this.width = width;
         this.height = height;
-        this.wscale = Math.ceil(width / 10);
-        this.hscale = Math.ceil(height / 10);
+        this.wscale = Math.ceil(width / 50);
+        this.hscale = Math.ceil(height / 50);
         this.table = new Array2D(this.wscale);
         this.objects = [];
         this.register = function(object, options) {
@@ -169,7 +169,7 @@ function starwars() {
                 toDraws = [];
                 activeCells = [];
                 var ttt = this.table
-                this.table.for2d(0, 0, 10, 10, function(d, i, j) {
+                this.table.for2d(0, 0, 50, 50, function(d, i, j) {
                     if (typeof d === typeof []) {
                         var dt = { x: i, y: j };
                         d.forEach(function(o) {
@@ -188,7 +188,7 @@ function starwars() {
                 ctx.strokeStyle = "red";
                 for (var i = 0; i < activeCells.length; i++) {
                     if (typeof this.table.idx(activeCells[i].x, activeCells[i].y) === typeof [])
-                        ctx.strokeRect(activeCells[i].x * 50, activeCells[i].y * 50, 50, 50);
+                        ctx.strokeRect(activeCells[i].x * 10, activeCells[i].y * 10, 10, 10);
                 }
                 ctx.strokeStyle = tempColor;
             }
@@ -312,7 +312,7 @@ function starwars() {
     function Explosion(x, y) {
         var num = Math.random() * 250 + 50;
         for (var i = 1; i <= num; i++) {
-            world.push(new Particle(x, y, { dx: Math.random() * 100 - 50, dy: Math.random() * 120 + 20 }))
+            world.nullPush(new Particle(x, y, { dx: Math.random() * 100 - 50, dy: Math.random() * 120 + 20 }))
         }
     }
 
@@ -388,9 +388,9 @@ function starwars() {
         world.nullPush(this);
         cs.register(this);
     }
-    var cs = new ColSystem(width, height);
-    var level = new Level1;
-    var player = new Player;
+    cs = new ColSystem(width, height);
+    level = new Level1;
+    player = new Player;
 
     cs.hitByType(Player, SpaceRock, function(a, b) {
         player.hp -= 1;
